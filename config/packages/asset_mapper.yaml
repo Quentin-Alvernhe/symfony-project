@@ -1,0 +1,14 @@
+framework:
+    asset_mapper:
+        paths:
+            - assets/
+        excluded_patterns:
+            - '*/assets/mails**'
+        missing_import_mode: strict
+        exclude_dotfiles: true
+        importmap_polyfill: false
+
+when@prod:
+    framework:
+        asset_mapper:
+            missing_import_mode: warn
