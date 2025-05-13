@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container mt-5 mb-3">
+    <h1>Liste des syndicats</h1>
+
+    <table class="table table-bordered table-striped mt-4">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Acronyme</th>
+                <th>Email</th>
+                <th>Téléphone</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for syndicat in items %}
+                <tr>
+                    <td>{{ syndicat.nom }}</td>
+                    <td>{{ syndicat.acronyme }}</td>
+                    <td>{{ syndicat.email }}</td>
+                    <td>{{ syndicat.telephone }}</td>
+                    <td>
+                        <a href="{{ path('app_syndicat_edit', {id: syndicat.id}) }}">Modifier</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr><td colspan="5">Aucun syndicat trouvé</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_syndicat_new') }}">Ajouter un syndicat</a>
+</div>
+{% endblock %}

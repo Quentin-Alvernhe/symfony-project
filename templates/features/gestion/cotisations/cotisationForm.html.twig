@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container mt-5">
+    <h2>Ajouter une cotisation à {{ syndicat.nom }}</h2>
+
+    {{ form_start(form) }}
+        {{ form_row(form.nom) }}
+        {{ form_row(form.montant) }}
+        {{ form_row(form.description) }}
+        <button class="btn btn-success mt-3">Enregistrer</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('app_syndicat_edit', { id: syndicat.id }) }}" class="btn btn-secondary mt-3">Retour</a>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1>Informations abonnés</h1>
+
+    <div class="d-flex mb-4">
+        <a href="{{ path('app_activite_index') }}" class="btn btn-outline-dark me-2 {% if current == 'activite' %}active{% endif %}">Activités</a>
+        <a href="{{ path('app_secteur_index') }}" class="btn btn-outline-dark  me-2 {% if current == 'secteur' %}active{% endif %}">Secteurs</a>
+        <a href="{{ path('app_specificite_index') }}" class="btn btn-outline-dark  me-2 {% if current == 'specificite' %}active{% endif %}">Spécificités</a>
+        <a href="{{ path('app_statut_index') }}" class="btn btn-outline-dark  me-2 {% if current == 'statut' %}active{% endif %}">Statuts</a>
+        <a href="{{ path('app_centrale_index') }}" class="btn btn-outline-dark  me-2 {% if current == 'centrale' %}active{% endif %}">Centrales</a>
+        <a href="{{ path('app_adresse_index') }}" class="btn btn-outline-dark  {% if current == 'adresse' %}active{% endif %}">Adresses</a>
+    </div>
+
+    {% if items is defined %}
+        <h2>Liste des {{ current }}s</h2>
+        {% include 'features/gestion/entites/entiteList.html.twig' with {'items': items, 'type': current} %}
+    {% elseif adresses is defined %}
+        <h2>Liste des adresses</h2>
+        {% include 'features/gestion/entites/adresseList.html.twig' with {'items': adresses, 'type': 'adresse'} %}
+    {% endif %}
+</div>
+{% endblock %}

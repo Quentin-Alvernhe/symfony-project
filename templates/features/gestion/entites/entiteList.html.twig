@@ -1,0 +1,28 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for item in items %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>
+                <a href="{{ path('app_'~type~'_edit', {'id': item.id}) }}" class="btn btn-sm btn-outline-primary">Modifier</a>
+                <form method="post" action="{{ path('app_'~type~'_delete', {'id': item.id}) }}" style="display:inline-block" onsubmit="return confirm('Confirmer la suppression ?');">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete'~item.id) }}">
+                    <button class="btn btn-sm btn-outline-danger">Supprimer</button>
+                </form>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="2">Aucun élément trouvé.</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<a href="{{ path('app_'~type~'_new') }}" class="btn btn-success mb-3">Ajouter</a>

@@ -1,0 +1,38 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Adresse Ligne 1</th>
+            <th>Code postal</th>
+            <th>Ville</th>
+            <th>Département</th>
+            <th>Région</th>
+            <th>Pays</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for item in items %}
+        <tr>
+            <td>{{ item.ligne1 }}</td>
+            <td>{{ item.codePostal }}</td>
+            <td>{{ item.ville }}</td>
+            <td>{{ item.departement }}</td>
+            <td>{{ item.region }}</td>
+            <td>{{ item.pays }}</td>
+            <td>
+                <a href="{{ path('app_adresse_edit', {'id': item.id}) }}" class="btn btn-sm btn-outline-primary">Modifier</a>
+                <form method="post" action="{{ path('app_adresse_delete', {'id': item.id}) }}" style="display:inline-block" onsubmit="return confirm('Confirmer la suppression ?');">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete'~item.id) }}">
+                    <button class="btn btn-sm btn-outline-danger">Supprimer</button>
+                </form>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="7">Aucune adresse trouvée.</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<a href="{{ path('app_adresse_new') }}" class="btn btn-success mb-3">Ajouter une adresse</a>

@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1 class="mb-4">Détail de l'utilisateur : {{ user.fullName}}</h1>
+
+        <div class="card shadow-sm p-4">
+            <dl class="row mb-0">
+                <dt class="col-sm-3">Nom complet</dt>
+                <dd class="col-sm-9">{{ user.fullName }}</dd>
+
+                <dt class="col-sm-3">Email</dt>
+                <dd class="col-sm-9">{{ user.email }}</dd>
+
+                <dt class="col-sm-3">Rôle</dt>
+                <dd class="col-sm-9">{{ user.role.name|capitalize }}</dd>
+
+                <dt class="col-sm-3">Actif</dt>
+                <dd class="col-sm-9">
+                    {% if user.isActive %}
+                        <span class="badge bg-success">Oui</span>
+                    {% else %}
+                        <span class="badge bg-danger">Non</span>
+                    {% endif %}
+                </dd>
+
+                <dt class="col-sm-3">Créé le</dt>
+                <dd class="col-sm-9">{{ user.createdAt|date('d/m/Y H:i') }}</dd>
+
+                <dt class="col-sm-3">Dernière modification</dt>
+                <dd class="col-sm-9">{{ user.updatedAt|date('d/m/Y H:i') }}</dd>
+            </dl>
+        </div>
+
+        <a href="{{ path('app_user_index') }}" class="btn btn-secondary mt-4">← Retour à la liste</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,125 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container mt-3">
+    <h1>{{ current|capitalize }} - {{ form.vars.value.id is null ? 'Créer' : 'Modifier' }}</h1>
+    <hr class="my-4">
+    {{ form_start(form) }}
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            {{ form_label(form.nom) }}<br>
+            {{ form_widget(form.nom) }}
+        </div>
+        <div class="col-md-6 mb-3">
+            {{ form_label(form.acronyme) }}<br>
+            {{ form_widget(form.acronyme) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            {{ form_label(form.email) }}<br>
+            {{ form_widget(form.email) }}
+        </div>
+        <div class="col-md-6 mb-3">
+            {{ form_label(form.telephone) }}<br>
+            {{ form_widget(form.telephone) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            {{ form_label(form.siret) }}<br>
+            {{ form_widget(form.siret) }}
+        </div>
+        <div class="col-md-6 mb-3">
+            {{ form_label(form.banque) }}<br>
+            {{ form_widget(form.banque) }}
+        </div>
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.nomAssoDon) }}<br>
+        {{ form_widget(form.nomAssoDon) }}
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            {{ form_label(form.contactPrincipale) }}
+            {{ form_widget(form.contactPrincipale) }}
+        </div>
+        <div class="col-md-4 mb-3">
+            {{ form_label(form.contactSecretariat) }}
+            {{ form_widget(form.contactSecretariat) }}
+        </div>
+        <div class="col-md-4 mb-3">
+            {{ form_label(form.contactComptable) }}
+            {{ form_widget(form.contactComptable) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            {{ form_row(form.centrales) }}
+        </div>
+        <div class="col-md-6 mb-3">
+            {{ form_row(form.secteurs) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            {{ form_row(form.activites) }}
+        </div>
+        <div class="col-md-6 mb-3">
+            {{ form_row(form.statuts) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            {{ form_row(form.specificites) }}
+        </div>
+
+        <div class="col-md-6 mb-3">
+            {{ form_row(form.adresses) }}
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <button type="submit" class="btn btn-success mt-3">
+            {{ form.vars.value.id is null ? 'Créer' : 'Enregistrer' }}
+        </button>
+        <a href="{{ path('app_' ~ current ~ '_index') }}" class="btn btn-secondary mt-3">Retour</a>
+    </div>
+    
+    {{ form_end(form) }}
+    <hr class="my-4">
+    <div class="mb-4">
+        {% if form.vars.value.id %}
+            <h4 class="mb-4">Gestion des cotisations</h4>
+            <ul class="list-group mb-3">
+                {% for cotisation in form.vars.value.cotisations %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ cotisation.nom }} – {{ cotisation.montant }} €
+                        <form method="post" action="{{ path('cotisation_delete', {id: cotisation.id}) }}" onsubmit="return confirm('Supprimer cette cotisation ?');">
+                            <input type="hidden" name="_method" value="POST">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ cotisation.id) }}">
+                            <button class="btn btn-sm btn-danger">Supprimer</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li class="list-group-item">Aucune cotisation</li>
+                {% endfor %}
+            </ul>
+
+            <a href="{{ path('cotisation_add', {syndicat: form.vars.value.id}) }}" class="btn btn-outline-primary">
+                Ajouter une cotisation
+            </a>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1>{{ current|capitalize }} - {{ form.vars.value.id is null ? 'Créer' : 'Modifier' }}</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button class="btn btn-success mt-3">
+            {{ form.vars.value.id is null ? 'Créer' : 'Modifier' }}
+        </button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('app_' ~ current ~ '_index') }}" class="btn btn-secondary mt-3">Retour</a>
+</div>
+{% endblock %}
